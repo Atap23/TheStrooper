@@ -1,0 +1,121 @@
+import React, { Component } from 'react';
+import {
+  Text,
+  View,
+  Button
+} from 'react-native';
+import StroopButton from "./StroopButton";
+import ProgressBarAnimated from 'react-native-progress-bar-animated';
+
+
+export default class  extends Component {
+  constructor(props) {
+    super(props);
+    this.setProgressBarInterval = this.setProgressBarInterval.bind(this);
+    this.checkAnswer = this.checkAnswer.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.loadMaxPoints();
+  }
+
+  checkAnswer(selectedButton) {
+    if (this.props.gameStarted) {
+      this.props.checkAnswer(selectedButton);
+    }
+  }
+
+  setProgressBarInterval() {
+    let myThis = this;
+
+    if (!myThis.props.gameStarted) {
+      let myInterval = setInterval(() => {
+        myThis.props.progress();
+
+        if (myThis.props.progressBarValue === 100) {
+          clearInterval(myInterval);
+          myThis.props.endGame();
+        }
+      }, 100);
+      myThis.props.startGame();
+    } else {
+      myThis.props.endGame();
+      myThis.props.startGame();
+    }
+  }
+
+  render() {
+    return (
+      <View style={{display: 'flex', height: '100%'}}>
+        <View style={{height: '7.5%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
+          <Text style={{fontSize: 22, color: 'black', fontWeight: 'bold'}}>Nivel: {this.props.level}</Text>
+          <Text style={{fontSize: 22, color: 'black', fontWeight: 'bold'}}>Puntuacion: {this.props.points}</Text>
+        </View>
+        {/*<View style={{height: '7.5%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>*/}
+          {/*<Text style={{fontSize: 22, color: 'black', fontWeight: 'bold'}}>Max. Nivel: {this.props.maxLevel}</Text>*/}
+          {/*<Text style={{fontSize: 22, color: 'black', fontWeight: 'bold'}}>Max. Puntuacion: {this.props.maxPoints}</Text>*/}
+        {/*</View>*/}
+        <View style={{height: '15%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}}>
+          <ProgressBarAnimated
+            borderColor="black"
+            barAnimationDuration={100}
+            borderWidth={3}
+            borderRadius={10}
+            height={20}
+            width={250}
+            value={this.props.progressBarValue}
+            backgroundColor="#6CC644"
+            backgroundColorOnComplete="#6CC644"
+            style={{backgroundColor: 'black'}}
+            onComplete={this.props.endGame}
+          />
+        </View>
+        <View style={{height: '50%', width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
+          <StroopButton
+            onPress={() => { this.checkAnswer(0)}}
+            disabled={!this.props.gameStarted}
+            backgroundColor="white"
+            height="33%"
+            width="30%"
+            borderWidth={5}
+            text={this.props.buttons[0].text}
+            borderColor={this.props.buttons[0].borderColor}
+            textColor={this.props.buttons[0].textColor}/>
+          <StroopButton
+            onPress={() => { this.checkAnswer(1)}}
+            disabled={!this.props.gameStarted}
+            backgroundColor="white"
+            height="33%"
+            width="30%"
+            borderWidth={5}
+            text={this.props.buttons[1].text}
+            borderColor={this.props.buttons[1].borderColor}
+            textColor={this.props.buttons[1].textColor}/>
+          <StroopButton
+            onPress={() => { this.checkAnswer(2)}}
+            disabled={!this.props.gameStarted}
+            backgroundColor="white"
+            height="33%"
+            width="30%"
+            borderWidth={5}
+            text={this.props.buttons[2].text}
+            borderColor={this.props.buttons[2].borderColor}
+            textColor={this.props.buttons[2].textColor}/>
+        </View>
+        <View style={{height: '20%', display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
+          <StroopButton
+            onPress={this.setProgressBarInterval}
+            backgroundColor="white"
+            paddingTop={5}
+            paddingBottom={5}
+            height={60}
+            width="50%"
+            borderWidth={5}
+            text="COMENZAR JUEGO"
+            borderColor="black"
+            textColor="black"/>
+        </View>
+      </View>
+    )
+  }
+}
