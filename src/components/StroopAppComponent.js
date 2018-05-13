@@ -5,6 +5,7 @@ import {
   Button
 } from 'react-native';
 import StroopButton from "./StroopButton";
+import StroopHeader from "./StroopHeader";
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 
 
@@ -16,7 +17,7 @@ export default class  extends Component {
   }
 
   componentDidMount() {
-    this.props.loadMaxPoints();
+    this.props.loadGame();
   }
 
   checkAnswer(selectedButton) {
@@ -47,14 +48,12 @@ export default class  extends Component {
   render() {
     return (
       <View style={{display: 'flex', height: '100%'}}>
-        <View style={{height: '7.5%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
-          <Text style={{fontSize: 22, color: 'black', fontWeight: 'bold'}}>Nivel: {this.props.level}</Text>
-          <Text style={{fontSize: 22, color: 'black', fontWeight: 'bold'}}>Puntuacion: {this.props.points}</Text>
-        </View>
-        {/*<View style={{height: '7.5%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>*/}
-          {/*<Text style={{fontSize: 22, color: 'black', fontWeight: 'bold'}}>Max. Nivel: {this.props.maxLevel}</Text>*/}
-          {/*<Text style={{fontSize: 22, color: 'black', fontWeight: 'bold'}}>Max. Puntuacion: {this.props.maxPoints}</Text>*/}
-        {/*</View>*/}
+        <StroopHeader
+          level={this.props.level}
+          points={this.props.points}
+          maxLevel={this.props.maxLevel}
+          maxPoints={this.props.maxPoints}
+        />
         <View style={{height: '15%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}}>
           <ProgressBarAnimated
             borderColor="black"
@@ -70,7 +69,7 @@ export default class  extends Component {
             onComplete={this.props.endGame}
           />
         </View>
-        <View style={{height: '50%', width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
+        <View style={{paddingLeft: 15, paddingRight: 15, height: '50%', width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
           <StroopButton
             onPress={() => { this.checkAnswer(0)}}
             disabled={!this.props.gameStarted}

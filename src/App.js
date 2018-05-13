@@ -1,17 +1,16 @@
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
- * @flow
  */
 
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 
-import store from './reducers/AppReducer';
-import StroopApp from './actions/AppAction';
+import store from './redux/configureStore';
+import StroopAppContainer from './containers/StroopBoardContainer';
 
-type Props = {};
-export default class App extends Component<Props> {
+
+export default class App extends Component {
   constructor(props) {
     super(props);
   }
@@ -19,7 +18,7 @@ export default class App extends Component<Props> {
   render() {
     return (
       <Provider store={store}>
-        <StroopApp />
+        <StroopAppContainer />
       </Provider>
     );
   }
