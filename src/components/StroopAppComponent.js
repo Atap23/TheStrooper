@@ -33,7 +33,8 @@ export default class  extends Component {
       let myInterval = setInterval(() => {
         myThis.props.progress();
 
-        if (myThis.props.progressBarValue === 100) {
+        //TODO: Necesitaria poder parar este interval desde el reducer cuando el numero de vidas llega a 0. ¿Como?
+        if (myThis.props.progressBarValue === 100 || !myThis.props.gameStarted) {
           clearInterval(myInterval);
           myThis.props.endGame();
         }
@@ -53,6 +54,7 @@ export default class  extends Component {
           points={this.props.points}
           maxLevel={this.props.maxLevel}
           maxPoints={this.props.maxPoints}
+          lives={this.props.lives}
         />
         <View style={{height: '15%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}}>
           <ProgressBarAnimated

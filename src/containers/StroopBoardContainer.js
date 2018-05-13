@@ -17,7 +17,8 @@ const mapStateToProps = (state) => {
     maxLevel: state.maxLevel,
     maxPoints: state.maxPoints,
     progressBarValue: state.progressBarValue,
-    buttons: state.buttons
+    buttons: state.buttons,
+    lives: state.lives
   });
 };
 

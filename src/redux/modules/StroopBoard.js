@@ -19,6 +19,7 @@ const initialState = {
   level: 1,
   maxPoints: 0,
   maxLevel: 1,
+  lives: 3,
   progressBarValue: 0,
   buttons: [
     {
@@ -83,12 +84,25 @@ export default function reducer(state=initialState, action) {
   function checkAnswerHandler(state, action) {
     let selectedButton = state.buttons[action.selectedButton];
     let correctAnswer = selectedButton.text === selectedButton.textColor;
-    let level = correctAnswer ? (state.level + 1) : state.level;
-    let points = correctAnswer ? (state.points + 100) : (state.points - 150);
-    let buttons = correctAnswer ? Utils.createButtons() : state.buttons;
-    let progressBarValue = correctAnswer ? 0 : state.progressBarValue;
+    let newStateObject = {
+      level: correctAnswer ? (state.level + 1) : state.level,
+      points: correctAnswer ? (state.points + 100) : (state.points - 5),
+      buttons: correctAnswer ? Utils.createButtons() : state.buttons,
+      progressBarValue: correctAnswer ? 0 : state.progressBarValue,
+      lives: correctAnswer ? state.lives : state.lives - 1
+    };
 
-    return Object.assign({}, state, { level, points, buttons, progressBarValue });
+    //TODO: En vez de calcular el nuevo objeto, buscar una manera de lanzar la accion END_GAME y así evitar logica repetida.
+    if (!newStateObject.lives) {
+      newStateObject.level = initialState.level;
+      newStateObject.points = initialState.points;
+      newStateObject.buttons = initialState.buttons;
+      newStateObject.progressBarValue = initialState.progressBarValue;
+      newStateObject.lives = initialState.lives;
+      newStateObject.gameStarted = false;
+    }
+
+    return Object.assign({}, state, newStateObject);
   }
 
   function endGameHandler(state) {
