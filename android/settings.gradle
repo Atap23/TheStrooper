@@ -1,0 +1,3 @@
+rootProject.name = 'StroopGame_React'
+
+include ':app'
