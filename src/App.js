@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 
 import store from './redux/configureStore';
-import StroopAppContainer from './containers/StroopBoardContainer';
+import StroopAppContainer from './containers/StroopAppContainer';
 
 
 export default class App extends Component {

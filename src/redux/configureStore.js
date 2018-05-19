@@ -1,4 +1,4 @@
 import { createStore } from 'redux';
-import StroopBoard from './modules/StroopBoard';
+import StroopBoard from './modules/StroopApp';
 
 export default createStore(StroopBoard);

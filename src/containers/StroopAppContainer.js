@@ -4,19 +4,19 @@ import {
   startGame,
   checkAnswer,
   endGame,
-  progress,
-  loadGame
-} from '../redux/modules/StroopBoard';
+  loadGame,
+  changeScreen
+} from '../redux/modules/StroopApp';
 
 
 const mapStateToProps = (state) => {
   return ({
     gameStarted: state.gameStarted,
+    screen: state.screen,
     points: state.points,
     level: state.level,
     maxLevel: state.maxLevel,
     maxPoints: state.maxPoints,
-    progressBarValue: state.progressBarValue,
     buttons: state.buttons,
     lives: state.lives
   });
@@ -26,8 +26,8 @@ const mapDispatchToProps = (dispatch) => ({
   startGame: () => dispatch(startGame()),
   checkAnswer: (selectedButton) => dispatch(checkAnswer(selectedButton)),
   endGame: () => dispatch(endGame()),
-  progress: () => dispatch(progress()),
-  loadGame: () => dispatch(loadGame())
+  loadGame: () => dispatch(loadGame()),
+  changeScreen: (screen) => dispatch(changeScreen(screen))
 });
 
 
