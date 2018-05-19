@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Text,
   View,
   TouchableNativeFeedback
 } from 'react-native';
+import Utils from '../Utils'
 
 const StroopButton = function(props) {
   return (
@@ -13,7 +14,7 @@ const StroopButton = function(props) {
       background={TouchableNativeFeedback.SelectableBackground()}>
       <View style={{
         borderWidth: props.borderWidth,
-        borderColor: props.borderColor,
+        borderColor: Utils.getColorFromName(props.borderColor),
         paddingBottom: props.paddingBottom,
         paddingTop: props.paddingTop,
         borderRadius: 5,
@@ -24,11 +25,11 @@ const StroopButton = function(props) {
         justifyContent: 'center',
         alignItems: 'center'}}>
         <Text style={{
-          color: props.textColor,
+          color: Utils.getColorFromName(props.textColor),
           fontSize: 20,
           textAlign: 'center',
           fontWeight: 'bold'}}>
-          {props.text}
+          {props.text.toUpperCase()}
         </Text>
       </View>
     </TouchableNativeFeedback>

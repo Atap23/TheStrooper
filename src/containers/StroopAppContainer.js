@@ -5,7 +5,8 @@ import {
   checkAnswer,
   endGame,
   loadGame,
-  changeScreen
+  changeScreen,
+  badAnswer
 } from '../redux/modules/StroopApp';
 
 
@@ -13,6 +14,7 @@ const mapStateToProps = (state) => {
   return ({
     gameStarted: state.gameStarted,
     screen: state.screen,
+    actualSeconds: state.actualSeconds,
     points: state.points,
     level: state.level,
     maxLevel: state.maxLevel,
@@ -24,7 +26,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   startGame: () => dispatch(startGame()),
-  checkAnswer: (selectedButton) => dispatch(checkAnswer(selectedButton)),
+  checkAnswer: (selectedButton, time) => dispatch(checkAnswer(selectedButton, time)),
+  badAnswer: (time) => dispatch(badAnswer(time)),
   endGame: () => dispatch(endGame()),
   loadGame: () => dispatch(loadGame()),
   changeScreen: (screen) => dispatch(changeScreen(screen))

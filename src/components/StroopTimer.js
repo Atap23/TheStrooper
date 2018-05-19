@@ -22,6 +22,7 @@ export default class StroopTimer extends React.Component {
 
   componentDidMount() {
     this.widthAnimation = this.getAnimation();
+    this.state.animatedWidthValue.addListener(({value}) => this.value = value);
   }
 
   getAnimation(seconds) {
@@ -51,10 +52,19 @@ export default class StroopTimer extends React.Component {
     return this.widthAnimation.start(this.onEndHandler);
   }
 
+  getValue() {
+    return this.value;
+  }
+
   onEndHandler(params) {
     if (params.finished) {
-      this.state.animatedWidthValue.setValue(100);
-      this.props.endGame();
+      if (!(this.props.lives - 1)) {
+        this.state.animatedWidthValue.setValue(100);
+        this.props.endGame();
+      } else {
+        this.props.badAnswer(0.1);
+        this.restartAnimation();
+      }
     }
   }
 

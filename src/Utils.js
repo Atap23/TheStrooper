@@ -1,11 +1,24 @@
 import { AsyncStorage } from 'react-native';
 
 const Utils = {};
-const AVAILABLE_COLORS = ['blue', 'red', 'green', 'brown', 'black', 'gray', 'violet'];
+const AVAILABLE_COLORS = ['azul', 'rojo', 'verde', 'marron', 'negro', 'gris', 'morado', 'naranja', 'rosa'];
+
+const COLOR_MAP = {
+  azul: '#0232fe',
+  rojo: '#fe3200',
+  verde: '#00ca02',
+  marron: '#7f0402',
+  negro: '#333333',
+  gris: '#979498',
+  morado: '#972ffe',
+  naranja: '#fe7600',
+  rosa: '#fe64ff'
+};
 
 Utils.getRandomColor = getRandomColor;
 Utils.getRandomInt = getRandomInt;
 Utils.getRandomColorNotIn = getRandomColorNotIn;
+Utils.getColorFromName = getColorFromName;
 Utils.millisecondsToSeconds = millisecondsToSeconds;
 Utils.createButtons = createButtons;
 Utils.loadGame = loadGame;
@@ -24,6 +37,10 @@ function getRandomColorNotIn(colors) {
   return newColor;
 }
 
+function getColorFromName(colorName) {
+  return COLOR_MAP[colorName];
+}
+
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -40,14 +57,17 @@ function createButtons() {
     selectedColors.push(Utils.getRandomColorNotIn(selectedColors));
     let text = selectedColors[x];
     let borderColor = Utils.getRandomColorNotIn(selectedColors);
+    let answer = false;
 
     if (_magicNumber === x) {
       borderColor = text;
+      answer = true;
     }
 
     _buttons.push({
-      text: text,
-      borderColor: borderColor,
+      text,
+      answer,
+      borderColor,
       textColor: borderColor
     })
   }

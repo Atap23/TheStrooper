@@ -17,7 +17,7 @@ export default class StroopAppComponent extends Component {
 
   startGame() {
     this.props.startGame();
-    this.refs.progressBarComponent.startAnimation(5, () => this.props.endGame());
+    this.refs.progressBarComponent.startAnimation(this.props.actualSeconds);
   }
 
   componentDidMount() {
@@ -28,12 +28,13 @@ export default class StroopAppComponent extends Component {
     let myThis = this;
 
     if (this.props.gameStarted) {
-      this.props.checkAnswer(selectedButton);
+      this.props.checkAnswer(selectedButton, this.refs.progressBarComponent.getValue());
     }
 
     setTimeout(() => {
       if (myThis.props.lives) {
-        myThis.refs.progressBarComponent.restartAnimation();
+        myThis.refs.progressBarComponent.stopAnimation();
+        myThis.refs.progressBarComponent.startAnimation(this.props.actualSeconds);
       } else {
         myThis.props.endGame();
         myThis.refs.progressBarComponent.stopAnimation();
@@ -55,7 +56,7 @@ export default class StroopAppComponent extends Component {
         lives={this.props.lives}
       />
       <View style={{height: '15%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}}>
-        <StroopTimer ref="progressBarComponent" endGame={this.props.endGame}/>
+        <StroopTimer ref="progressBarComponent" lives={this.props.lives} badAnswer={this.props.badAnswer} endGame={this.props.endGame}/>
       </View>
       <View style={{paddingLeft: 15, paddingRight: 15, height: '50%', width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
         <StroopButton
