@@ -26,7 +26,7 @@ const StroopButton = function(props) {
         alignItems: 'center'}}>
         <Text style={{
           color: Utils.getColorFromName(props.textColor),
-          fontSize: 20,
+          fontSize: 16,
           textAlign: 'center',
           fontWeight: 'bold'}}>
           {props.text.toUpperCase()}

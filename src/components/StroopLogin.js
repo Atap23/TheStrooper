@@ -19,7 +19,7 @@ export default class StroopLogin extends Component {
   render() {
     return (
       <View style={{display: 'flex', height: '100%'}}>
-        <View style={{display: 'flex', height: '40%', justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{display: 'flex', height: '25%', justifyContent: 'center', alignItems: 'center'}}>
           <Text style={{fontSize: 40}}>The Strooper</Text>
         </View>
         <View style={{display: 'flex', height: '30%', paddingLeft: 30, paddingRight: 30}}>
@@ -28,7 +28,7 @@ export default class StroopLogin extends Component {
           <Text style={{color: 'black', fontSize: 16, textAlign: 'center', marginTop: 20}}>Por último, tienes 3 vidas. Si te equivocas pierdes una vida, y si las pierdes todas... GAME OVER</Text>
         </View>
         <View />
-        <View style={{display: 'flex', height: '30%', justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{display: 'flex', height: '45%', justifyContent: 'center', alignItems: 'center'}}>
           <StroopButton
             onPress={() => this.changeScreenToBoard()}
             backgroundColor="white"
